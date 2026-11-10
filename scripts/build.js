@@ -15,8 +15,10 @@ program.option('--builder <str>').action(opts => {
     case 'pyinstaller':
       build = 'pyinstaller'
       build += ' --clean'
+      build += ' --noupx'
       build += ' --onedir'
       build += ' --noconsole'
+      build += ' --optimize=2'
       build += ' --name=hello'
       build += ' --add-data=ui:ui'
       build += ' --icon=icons/icon.ico'

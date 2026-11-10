@@ -5,7 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
-    "nuitka[onefile]>=4.3.5",
+    "nuitka>=4.3.5",
     "pyinstaller>=6.22.3",
     "pywebview[qt]>=6.2.1",
 ]
