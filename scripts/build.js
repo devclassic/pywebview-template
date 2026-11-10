@@ -1,12 +1,9 @@
 import spawn from 'cross-spawn'
-import fse from 'fs-extra'
 import { program } from 'commander'
 
 process.env.NODE_ENV = 'production'
 
 spawn.sync('vite', ['build'], { stdio: 'inherit' })
-
-fse.removeSync('dist')
 
 program.option('--builder <str>').action(opts => {
   let build = ''
@@ -32,6 +29,8 @@ program.option('--builder <str>').action(opts => {
       build += ' --windows-icon-from-ico=icons/icon.ico'
       build += ' --output-filename=hello'
       build += ' --output-dir=dist'
+      build += ' --jobs=8'
+      build += ' --lto=yes'
       build += ' src-main/main.py'
       break
     default:

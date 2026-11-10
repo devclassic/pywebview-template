@@ -3,9 +3,9 @@
 uv + vite
 
 ```sh
-# linux安装依赖
-
-sudo apt install \
+# 安装依赖
+sudo apt update
+sudo apt install -y \
   python3-pyside6.qtcore \
   python3-pyside6.qtgui \
   python3-pyside6.qtwidgets \
@@ -13,5 +13,6 @@ sudo apt install \
   python3-pyside6.qtwebchannel \
   python3-pyside6.qtwebenginecore \
   python3-pyside6.qtwebenginewidgets \
-  python3-pyside6.qtwebenginequick
+  python3-pyside6.qtprintsupport \
+  python3-webview
 ```
