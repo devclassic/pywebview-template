@@ -9,12 +9,11 @@ spawn.sync('vite', ['build'], { stdio: 'inherit' })
 fse.removeSync('dist')
 
 program.option('--builder <str>').action(opts => {
-  console.log(opts)
   let build = ''
+
   switch (opts.builder) {
     case 'pyinstaller':
       build = 'pyinstaller'
-      build += ' --clean'
       build += ' --noupx'
       build += ' --onedir'
       build += ' --noconsole'
@@ -26,7 +25,7 @@ program.option('--builder <str>').action(opts => {
       break
     case 'nuitka':
       build = 'nuitka'
-      build += ' --remove-output'
+      build += ' --enable-plugin=pyside6'
       build += ' --mode=standalone'
       build += ' --windows-console-mode=disable'
       build += ' --include-data-dir=ui=ui'
@@ -39,6 +38,7 @@ program.option('--builder <str>').action(opts => {
       console.log('unknow builder')
       return
   }
+
   spawn.sync('uv', ['run', ...build.split(' ')], {
     stdio: 'inherit',
   })
