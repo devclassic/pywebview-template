@@ -6,8 +6,13 @@ uv + vite
 
 ### Windows
 
-[.NET Desktop Runtime](https://dotnet.microsoft.com/download/dotnet)  
-[Webview2](https://developer.microsoft.com/microsoft-edge/webview2)
+<a href="https://dotnet.microsoft.com/download/dotnet" target="_blank">
+  .NET Desktop Runtime
+</a>
+<br/>
+<a href="https://developer.microsoft.com/microsoft-edge/webview2" target="_blank">
+  Webview2
+</a>
 
 ### Linux
 
