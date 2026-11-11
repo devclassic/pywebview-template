@@ -8,6 +8,9 @@ else:
     url = os.path.join(base, "ui", "index.html")
 
 width, height = 640, 480
+screen = webview.screens[0]
+x = (screen.width - width) / 2
+y = (screen.height - height) / 2
 
 
 class Api:
@@ -16,11 +19,6 @@ class Api:
 
 
 def on_loaded(window):
-    if webview.renderer != "qtwebengine":
-        screen = webview.screens[0]
-        x, y = (screen.width - width) / 2, (screen.height - height) / 2
-        window.move(x, y)
-
     window.show()
 
 
@@ -29,10 +27,11 @@ window = webview.create_window(
     url=url,
     width=width,
     height=height,
+    x=x,
+    y=y,
     js_api=Api(),
-    hidden=True,
 )
 
 window.events.loaded += on_loaded
 
-webview.start(gui="qt")
+webview.start()
