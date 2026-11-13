@@ -6,13 +6,8 @@ uv + vite
 
 ### Windows
 
-<a href="https://dotnet.microsoft.com/download/dotnet" target="_blank">
-  .NET Desktop Runtime
-</a>
-<br/>
-<a href="https://developer.microsoft.com/microsoft-edge/webview2" target="_blank">
-  Webview2
-</a>
+[.NET Desktop Runtime](https://dotnet.microsoft.com/download/dotnet)  
+[Webview2](https://developer.microsoft.com/microsoft-edge/webview2)
 
 ### Linux
 
@@ -20,14 +15,26 @@ uv + vite
 # 项目依赖
 uv add pywebview[gtk]
 
-# 系统依赖
+# 开发依赖完整安装
 sudo apt install -y \
-  build-essential \
-  pkg-config \
+  python3-gi \
+  python3-gi-cairo \
   gir1.2-gtk-3.0 \
   gir1.2-webkit2-4.1 \
+  build-essential \
+  pkg-config \
+  python3-dev \
   libgirepository1.0-dev \
-  libcairo2-dev
+  libcairo2-dev \
+  libgtk-3-dev \
+  libwebkit2gtk-4.1-dev
+
+# 运行依赖
+sudo apt install -y \
+  python3-gi \
+  python3-gi-cairo \
+  gir1.2-gtk-3.0 \
+  gir1.2-webkit2-4.1
 ```
 
 ### MacOS
