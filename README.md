@@ -15,7 +15,7 @@ uv + vite
 # 项目依赖
 uv add pywebview[gtk]
 
-# 开发依赖完整安装
+# 开发依赖
 sudo apt install -y \
   python3-gi \
   python3-gi-cairo \
