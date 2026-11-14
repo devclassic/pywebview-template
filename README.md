@@ -17,6 +17,7 @@ uv add pywebview[gtk]
 
 # 开发依赖
 sudo apt install -y \
+  patchelf \
   python3-gi \
   python3-gi-cairo \
   gir1.2-gtk-3.0 \
