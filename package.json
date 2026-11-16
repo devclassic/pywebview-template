@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node scripts/dev.js",
-    "build:i": "node scripts/build.js --builder pyinstaller",
-    "build:n": "node scripts/build.js --builder nuitka",
+    "dev": "deno -A scripts/dev.js",
+    "build:i": "deno -A scripts/build.js --builder pyinstaller",
+    "build:n": "deno -A scripts/build.js --builder nuitka",
     "format": "prettier -w ."
   },
   "devDependencies": {
