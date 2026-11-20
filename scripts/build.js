@@ -2,16 +2,12 @@ import spawn from 'cross-spawn'
 import fse from 'fs-extra'
 import { program } from 'commander'
 import os from 'os'
-import * as toml from 'smol-toml'
 import path from 'path'
+import * as toml from 'smol-toml'
 
-const name = 'hello'
+const name = 'test'
 
 process.env.NODE_ENV = 'production'
-
-fse.removeSync('dist')
-
-const platform = os.platform()
 
 function run(command, args) {
   const result = spawn.sync(command, args, {
@@ -25,11 +21,12 @@ function run(command, args) {
   }
 }
 
+fse.removeSync('dist')
+fse.removeSync('ui')
+
 run('vite', ['build'])
 
-const pyproject = toml.parse(fse.readFileSync('pyproject.toml', 'utf8'))
-pyproject.project.dependencies = []
-fse.writeFileSync('pyproject.toml', toml.stringify(pyproject))
+const platform = os.platform()
 
 let dependencies = []
 
@@ -58,6 +55,27 @@ switch (platform) {
     throw new Error(`Unsupported platform: ${platform}`)
 }
 
+const removes = [
+  'pywebview',
+  'pywebview[gtk]',
+  'nuitka',
+  'pyinstaller',
+  'pygobject',
+  'pycairo',
+  'pyobjc-core',
+  'pyobjc-framework-cocoa',
+  'pyobjc-framework-quartz',
+  'pyobjc-framework-webkit',
+  'pyobjc-framework-security',
+]
+const pyproject = toml.parse(fse.readFileSync('pyproject.toml').toString())
+for (const item of pyproject.project.dependencies) {
+  if (!removes.includes(item.split('>')[0])) {
+    dependencies.push(item)
+  }
+}
+pyproject.project.dependencies = []
+fse.writeFileSync('pyproject.toml', toml.stringify(pyproject))
 run('uv', ['add', '--upgrade', ...dependencies])
 
 let buildArgs = []
@@ -152,8 +170,5 @@ if (platform === 'linux' && opts.builder === 'pyinstaller') {
   }
   fse.removeSync(`dist/${name}/_internal/share/icons`)
 }
-
-pyproject.project.dependencies = []
-fse.writeFileSync('pyproject.toml', toml.stringify(pyproject))
 
 console.log('Done')
