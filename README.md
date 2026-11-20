@@ -13,8 +13,8 @@ uv + vite
 
 ```sh
 # 开发依赖
-sudo apt-get update && \
-     apt-get install -y \
+sudo apt update && \
+     apt install -y \
      build-essential \
      pkg-config \
      patchelf \
