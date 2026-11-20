@@ -3,10 +3,13 @@ import fse from 'fs-extra'
 import { program } from 'commander'
 import os from 'os'
 import * as toml from 'smol-toml'
+import path from 'path'
 
 const name = 'hello'
 
 process.env.NODE_ENV = 'production'
+
+fse.removeSync('dist')
 
 const platform = os.platform()
 
@@ -22,15 +25,12 @@ function run(command, args) {
   }
 }
 
-// 构建前端
 run('vite', ['build'])
 
-// 清空原有 Python 依赖
 const pyproject = toml.parse(fse.readFileSync('pyproject.toml', 'utf8'))
 pyproject.project.dependencies = []
 fse.writeFileSync('pyproject.toml', toml.stringify(pyproject))
 
-// 根据系统安装依赖
 let dependencies = []
 
 switch (platform) {
@@ -106,7 +106,41 @@ switch (opts.builder) {
 
 run('uv', ['run', opts.builder, ...buildArgs])
 
-if (platform === 'linux') {
+if (platform === 'linux' && opts.builder === 'pyinstaller') {
+  const typelibDest = path.join('dist', name, '_internal', 'gi_typelibs')
+
+  if (fse.existsSync(typelibDest)) {
+    const searchPaths = [
+      '/usr/lib/girepository-1.0',
+      '/usr/lib64/girepository-1.0',
+      '/usr/lib/x86_64-linux-gnu/girepository-1.0',
+      '/usr/lib/aarch64-linux-gnu/girepository-1.0',
+    ]
+
+    const needed = [
+      'WebKit2-4.1.typelib',
+      'JavaScriptCore-4.1.typelib',
+      'GdkX11-3.0.typelib',
+      'Soup-3.0.typelib',
+    ]
+
+    for (const file of needed) {
+      let found = false
+      for (const dir of searchPaths) {
+        const src = path.join(dir, file)
+        if (fse.existsSync(src)) {
+          fse.copySync(src, path.join(typelibDest, file))
+          console.log(`Copied ${file}`)
+          found = true
+          break
+        }
+      }
+      if (!found) {
+        console.warn(`Warning: ${file} not found in system paths`)
+      }
+    }
+  }
+
   for (const lib of [
     'libglib-2.0.so.0',
     'libgio-2.0.so.0',
@@ -118,5 +152,8 @@ if (platform === 'linux') {
   }
   fse.removeSync(`dist/${name}/_internal/share/icons`)
 }
+
+pyproject.project.dependencies = []
+fse.writeFileSync('pyproject.toml', toml.stringify(pyproject))
 
 console.log('Done')
