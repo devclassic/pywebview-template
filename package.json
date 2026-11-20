@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "deno -A scripts/dev.js",
-    "build:i": "deno -A scripts/build.js --builder pyinstaller",
-    "build:n": "deno -A scripts/build.js --builder nuitka",
+    "dev": "bun scripts/dev.js",
+    "build:i": "bun scripts/build.js --builder pyinstaller",
+    "build:n": "bun scripts/build.js --builder nuitka",
     "format": "prettier -w ."
   },
   "devDependencies": {
@@ -15,6 +15,7 @@
     "cross-spawn": "^7.0.6",
     "fs-extra": "^11.4.1",
     "prettier": "^3.10.1",
+    "smol-toml": "^1.9.1",
     "vite": "^8.3.8",
     "vue": "^3.5.45",
     "vue-router": "^5.5.0"
