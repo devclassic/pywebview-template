@@ -12,8 +12,9 @@ uv + vite
 ### Linux
 
 ```sh
-# 开发依赖
-sudo apt update && apt install -y \
+# deb
+sudo apt update && \
+sudo apt install -y \
      build-essential \
      pkg-config \
      patchelf \
@@ -26,4 +27,20 @@ sudo apt update && apt install -y \
      gir1.2-glib-2.0 \
      gir1.2-gtk-3.0 \
      gir1.2-webkit2-4.1
+
+# rhel
+sudo sudo dnf update -y && \
+sudo dnf install -y sudo dnf-plugins-core && \
+sudo dnf config-manager --set-enabled crb && \
+sudo dnf install -y epel-release && \
+sudo dnf groupinstall -y "Development Tools" && \
+sudo dnf install -y \
+     pkgconf-pkg-config \
+     patchelf \
+     gobject-introspection \
+     gobject-introspection-devel \
+     cairo-devel \
+     gtk3 \
+     webkit2gtk4.1 \
+     webkit2gtk4.1-devel
 ```
