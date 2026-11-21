@@ -7,5 +7,11 @@ docker build --no-cache -t dev .
 **使用**
 
 ```bash
-docker run --rm -v .:/work dev bash -c 'bun install && bun build:i'
+docker run --rm -v .:/work -v uv:/root/.local/share/uv dev bash -c 'bun build:i'
+```
+
+**清理磁盘缓存**
+
+```bash
+docker volume rm uv
 ```
