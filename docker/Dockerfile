@@ -6,6 +6,7 @@ WORKDIR /work
 # 构建期可覆盖的宿主机代理地址（默认 1080）
 ARG PROXY_HOST=host.docker.internal:1080
 ARG APT_MIRROR=mirrors.aliyun.com
+ARG NODE_VERSION=24.22.3
 
 # 环境变量
 ENV http_proxy=http://${PROXY_HOST} \
@@ -50,7 +51,6 @@ RUN curl -fsSL https://bun.com/install | bash
 RUN curl -fsSL https://deno.land/install.sh | bash
 
 # 安装Node
-ARG NODE_VERSION=24.22.3
 RUN curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz" \
     | tar -xz -C /usr/local --strip-components=1 --no-same-owner && \
     node -v && npm -v
