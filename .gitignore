@@ -1,11 +1,9 @@
 /.venv
 /build
 /dist
-/*.spec
-/uv.lock
-
 /node_modules
 /ui
-/bun.lock
-/deno.lock
+
+/*.spec
+/*.lock
 /pnpm-lock.yaml
