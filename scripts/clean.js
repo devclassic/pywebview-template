@@ -1,14 +1,8 @@
-import fse from 'fs-extra'
+import { rimraf } from 'rimraf'
 
 await Promise.all([
-  fse.remove('.venv'),
-  fse.remove('node_modules'),
-  fse.remove('dist'),
-  fse.remove('build'),
-  fse.remove('ui'),
-  fse.remove('bun.lock'),
-  fse.remove('deno.lock'),
-  fse.remove('uv.lock'),
+  rimraf(['.venv', 'node_modules', 'dist', 'build', 'ui']),
+  rimraf(['*.lock', '*.spec'], { glob: true }),
 ])
 
 console.log('Done')
