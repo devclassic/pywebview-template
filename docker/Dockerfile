@@ -19,6 +19,7 @@ ENV http_proxy=http://${PROXY_HOST} \
     UV_LINK_MODE=copy \
     UV_COMPILE_BYTECODE=1 \
     UV_CACHE_DIR=/root/.local/share/uv/cache \
+    NODE_USE_ENV_PROXY=1 \
     PATH="/root/.bun/bin:/root/.deno/bin:/root/.local/bin:${PATH}"
 
 # 换源 + 安装依赖
