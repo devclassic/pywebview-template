@@ -9,4 +9,3 @@ docker build --no-cache -t dev .
 ```bash
 docker run --rm -v .:/work dev bash -c ''
 ```
-
